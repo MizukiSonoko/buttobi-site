@@ -64,6 +64,9 @@ export default {
       }
     }
   },
+  router: {
+    base: '/u25challenge/'
+  },
   /*
   ** Build configuration
   */
