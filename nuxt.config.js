@@ -1,5 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
 
+const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
+  router: {
+    base: '/u25challenge/'
+  }
+} : {}
+
 export default {
   mode: 'spa',
   /*
@@ -64,9 +70,7 @@ export default {
       }
     }
   },
-  router: {
-    base: '/u25challenge/'
-  },
+  routerBase,
   /*
   ** Build configuration
   */
