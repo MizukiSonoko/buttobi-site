@@ -23,7 +23,7 @@ jobs:
           ${{ runner.os }}-node-
 
     - name: Install 
-    run: npm install
+      run: npm install
 
     - name: Generate
       run: npm run generate
