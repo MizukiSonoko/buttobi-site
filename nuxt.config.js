@@ -70,7 +70,7 @@ export default {
       }
     }
   },
-  routerBase,
+  ...routerBase,
   /*
   ** Build configuration
   */
