@@ -1,5 +1,7 @@
 # u25challenge
 
+[page](https://mizukisonoko.github.io/u25challenge/)
+
 > smart-u25 challenge page
 
 ## Build Setup
