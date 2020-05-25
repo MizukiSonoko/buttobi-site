@@ -33,7 +33,7 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
     </v-app-bar>
-    <v-content>
+    <v-content fluid>
       <v-container>
         <nuxt />
       </v-container>
