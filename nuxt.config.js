@@ -75,6 +75,10 @@ export default {
   ** Build configuration
   */
   build: {
+     /*
+     ** Postcss config
+     */
+    postcss: require("./postcss.config"),
     /*
     ** You can extend webpack config here
     */
