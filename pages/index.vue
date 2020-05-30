@@ -36,118 +36,64 @@
 <script lang="ts">
 import Vue from "vue";
 import dataSet from '@/assets/data.json'
+import mappingSet from '@/assets/mapping.json'
+import { isBefore, isAfter } from 'date-fns'
+
+interface StringKeyObject {
+    [key: string]: string;
+}
 
 export default Vue.extend({
   data: () => {
-    const iata2name = {
-      "HND":"羽田空港",
-      "NRT":"成田空港",
-      "KIX":"関西空港",
-      "FUK":"福岡空港",
-      "CTS":"新千歳空港",
-      "ITM":"伊丹空港",
-      "NGO":"名古屋/中部空港",
-      "KOJ":"鹿児島空港",
-      "OKA":"那覇空港",
-      "UKB":"神戸空港",
-      "KMQ":"小松空港",
-      "SDJ":"仙台空港",
-      "TTJ":"鳥取空港",
-      "KCZ":"高知空港",
-      "TAK":"高松空港",
-      "FSZ":"静岡空港",
-      "AOJ":"青森空港",
-      "OKI":"隠岐の島空港",
-      "NGS":"長崎空港",
-      "KUH":"釧路空港",
-      "IBR":"茨城空港",
-      "HNA":"花巻空港",
-      "NTQ":"穴水空港",
-      "MBE":"紋別空港",
-      "YGJ":"米子空港",
-      "TNE":"種子島空港",
-      "WKJ":"稚内空港",
-      "AXT":"秋田空港",
-      "FUJ":"福江島空港",
-      "FKS":"福島空港",
-      "IWJ":"石見空港",
-      "KMJ":"熊本空港",
-      "OKE":"沖永良部空港",
-      "MMJ":"松本空港",
-      "MYJ":"松山空港",
-      "AKJ":"旭川空港",
-      "ISG":"石垣島空港",
-      "KIJ":"新潟空港",
-      "TKS":"徳島空港",
-      "TKN":"徳之島空港",
-      "SYO":"庄内空港",
-      "HIJ":"広島空港",
-      "OBO":"帯広空港",
-      "IWK":"岩国空港",
-      "OKJ":"岡山空港",
-      "GAJ":"山形空港",
-      "UBJ":"山口宇部空港",
-      "KUM":"屋久島空港",
-      "NKM":"名古屋/小牧空港",
-      "TSJ":"対馬市空港",
-      "TOY":"富山空港",
-      "KMI":"宮崎空港",
-      "MMY":"宮古島空港",
-      "MMB":"女満別/網走空港",
-      "OIR":"奥尻町空港",
-      "ASJ":"奄美大島空港",
-      "AXJ":"天草空港",
-      "ONJ":"大館能代空港",
-      "OIT":"大分空港",
-      "TRA":"多良間島空港",
-      "IKI":"壱岐市空港",
-      "KKX":"喜界空港",
-      "SHM":"白浜町空港",
-      "MMD":"南大東空港",
-      "KTD":"北大東空港",
-      "KKJ":"北九州空港",
-      "RIS":"利尻富士町空港",
-      "HKD":"函館空港",
-      "IZO":"出雲空港",
-      "HAC":"八丈町空港",
-      "HSG":"佐賀空港",
-      "TJH":"豊岡市空港",
-      "UEO":"久米島空港",
-      "SHB":"中標津町空港",
-      "OKD":"札幌/丘珠空港",
-      "OGN":"与那国空港",
-      "RNJ":"与論空港",
-      "SHI":"下地島空港",
-      "MSJ":"三沢空港",
-      "FKJ":"福井市空港",
-      "RBJ":"礼文町空港",
-      "OIM":"大島町空港",
-      "SDS":"佐渡市空港",
-      "MYE":"三宅村空港"
-    }
+    const iata2name: StringKeyObject = mappingSet
     return {
       items: ['HND'],
-      results: 
-        dataSet.filter((d: any) => {
-          return d['odpt:originAirport'] === "odpt.Airport:HND" &&
-            d['odpt:destinationAirport'].split(':').slice(-1)[0] in iata2name
-        }).flatMap((d: any) => {
-          return {
-            dest: iata2name[d['odpt:destinationAirport'].split(':').slice(-1)[0]],
-            iata: d['odpt:destinationAirport'].split(':').slice(-1)[0],
-            flightNumbers: ["NH058"],
-            originTime: '11:30',
-            destTime: '13:05'
-          }
-        })
-      }
+      dataLoaded: false,
+      iata2name
+    }
   },
   mounted:()=>{
     console.log(dataSet.filter((d: any) => {
       return d['odpt:originAirport'] === "odpt.Airport:HND"
     }))
+  },
+  methods: {
+    getIataCode: function (airport: string): string {
+      return this.iata2name[airport.split(':').slice(-1)[0]]
+    },
+    isValidAirport: function (airport: string): boolean {
+      return this.iata2name[airport.split(':').slice(-1)[0]] !== ""
+    }
+  },
+  created() {
+    const now = Date.now();
+    try {
+      dataSet.filter((d: any) => {
+          return d['odpt:originAirport'] === "odpt.Airport:HND" && this.isValidAirport(d['odpt:originAirport'])
+        }).flatMap((d: any) => {
+          return d['odpt:flightScheduleObject'].filter((f: any) => {
+            const from = Date.parse(f['odpt:isValidFrom'])
+            const to = Date.parse(f['odpt:isValidTo'])
+            return isAfter(now, from) && isBefore(now, to)
+          }).map((f: any) => {
+            return {
+              dest: this.getIataCode(d['odpt:destinationAirport']),
+              iata: d['odpt:destinationAirport'].split(':').slice(-1)[0],
+              flightNumbers: f['odpt:flightNumber'][0],
+              originTime: f['odpt:originTime'],
+              destTime: f['odpt:destinationTime']
+            }
+          })
+        })
+      this.Data = {
+
+
+      }
+      this.dataLoaded = true
+    } finally {
+    }
   }  
-  });
+});
 
   /*
 0:
