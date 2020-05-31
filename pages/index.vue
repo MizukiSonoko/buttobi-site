@@ -17,7 +17,7 @@
         <v-btn color="primary" class="my-button">Go travel</v-btn>
       </v-col>
     </v-row>
-        <v-card v-for="(r, i) in data" :key="r.flightNumbers" class="mx-auto card">
+        <v-card v-for="(r, i) in data" :key="i" class="mx-auto card">
           <v-card-text>
             <div>No.{{i}}</div>
             <p class="display-1 text--primary">
@@ -26,7 +26,7 @@
             <p>NH058</p>
             <div class="text--primary">
               flightNumber: {{r.flightNumbers}}<br>
-              originTime:11:30 -> destinationTime:13:05
+              originTime:{{r.originTime}} -> destinationTime:{{r.destTime}}
             </div>
           </v-card-text>
         </v-card>
