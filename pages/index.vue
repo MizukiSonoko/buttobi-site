@@ -17,7 +17,7 @@
         <v-btn color="primary" class="my-button">Go travel</v-btn>
       </v-col>
     </v-row>
-        <v-card v-for="(r, i) in results" :key="r.flightNumbers[0]" class="mx-auto card">
+        <v-card v-for="(r, i) in data" :key="r.flightNumbers" class="mx-auto card">
           <v-card-text>
             <div>No.{{i}}</div>
             <p class="display-1 text--primary">
@@ -25,7 +25,7 @@
             </p>
             <p>NH058</p>
             <div class="text--primary">
-              flightNumber: NH058<br>
+              flightNumber: {{r.flightNumbers}}<br>
               originTime:11:30 -> destinationTime:13:05
             </div>
           </v-card-text>
@@ -48,6 +48,7 @@ export default Vue.extend({
     const iata2name: StringKeyObject = mappingSet
     return {
       items: ['HND'],
+      data: [],
       dataLoaded: false,
       iata2name
     }
@@ -68,7 +69,7 @@ export default Vue.extend({
   created() {
     const now = Date.now();
     try {
-      dataSet.filter((d: any) => {
+      this.data = dataSet.filter((d: any) => {
           return d['odpt:originAirport'] === "odpt.Airport:HND" && this.isValidAirport(d['odpt:originAirport'])
         }).flatMap((d: any) => {
           return d['odpt:flightScheduleObject'].filter((f: any) => {
@@ -85,10 +86,6 @@ export default Vue.extend({
             }
           })
         })
-      this.Data = {
-
-
-      }
       this.dataLoaded = true
     } finally {
     }
