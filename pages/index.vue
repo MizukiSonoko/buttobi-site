@@ -48,7 +48,7 @@ export default Vue.extend({
     const iata2name: StringKeyObject = mappingSet
     return {
       items: ['HND'],
-      data: [],
+      data: [] as Array<any>,
       dataLoaded: false,
       iata2name
     }
@@ -85,7 +85,7 @@ export default Vue.extend({
               destTime: f['odpt:destinationTime']
             }
           })
-        })
+        });
       this.dataLoaded = true
     } finally {
     }
