@@ -17,7 +17,7 @@
         <v-btn color="primary" class="my-button">Go travel</v-btn>
       </v-col>
     </v-row>
-        <v-card v-for="(r, i) in data" :key="i" class="mx-auto card">
+        <v-card v-for="(r, i) in data" :key="r.flightNumbers" class="mx-auto card">
           <v-card-text>
             <div>No.{{i}}</div>
             <p class="display-1 text--primary">
@@ -63,14 +63,14 @@ export default Vue.extend({
       return this.iata2name[airport.split(':').slice(-1)[0]]
     },
     isValidAirport: function (airport: string): boolean {
-      return this.iata2name[airport.split(':').slice(-1)[0]] !== ""
+      return this.iata2name[airport.split(':').slice(-1)[0]] !== undefined
     }
   },
   created() {
     const now = Date.now();
     try {
       this.data = dataSet.filter((d: any) => {
-          return d['odpt:originAirport'] === "odpt.Airport:HND" && this.isValidAirport(d['odpt:originAirport'])
+          return d['odpt:originAirport'] === "odpt.Airport:HND" && this.isValidAirport(d['odpt:destinationAirport'])
         }).flatMap((d: any) => {
           return d['odpt:flightScheduleObject'].filter((f: any) => {
             const from = Date.parse(f['odpt:isValidFrom'])
