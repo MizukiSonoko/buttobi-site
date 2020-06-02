@@ -23,9 +23,8 @@
             <p class="display-1 text--primary">
               to {{r.dest}}({{r.iata}})
             </p>
-            <p>NH058</p>
+            <p>{{r.flightNumbers}}</p>
             <div class="text--primary">
-              flightNumber: {{r.flightNumbers}}<br>
               originTime:{{r.originTime}} -> destinationTime:{{r.destTime}}
             </div>
           </v-card-text>
