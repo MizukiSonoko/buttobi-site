@@ -17,7 +17,7 @@
         <v-btn color="primary" class="my-button">Go travel</v-btn>
       </v-col>
     </v-row>
-        <v-card v-for="(r, i) in data" :key="i" class="mx-auto card">
+        <v-card v-for="(r, i) in data" :key="r.flightNumbers" class="mx-auto card">
           <v-card-text>
             <div>No.{{i}}</div>
             <p class="display-1 text--primary">
@@ -37,7 +37,7 @@
 import Vue from "vue";
 import dataSet from '@/assets/data.json'
 import mappingSet from '@/assets/mapping.json'
-import { isBefore, isAfter } from 'date-fns'
+import { isBefore, isAfter, getDay, parse } from 'date-fns'
 
 interface StringKeyObject {
     [key: string]: string;
@@ -53,24 +53,33 @@ export default Vue.extend({
       iata2name
     }
   },
-  mounted:()=>{
-    console.log(dataSet.filter((d: any) => {
-      return d['odpt:originAirport'] === "odpt.Airport:HND"
-    }))
-  },
+  mounted: function (){},
   methods: {
     getIataCode: function (airport: string): string {
       return this.iata2name[airport.split(':').slice(-1)[0]]
     },
+    getWeek: function (weekName: string): Date{
+      return parse(weekName.split(':').slice(-1)[0], 'cccc', new Date())
+    },
     isValidAirport: function (airport: string): boolean {
       return this.iata2name[airport.split(':').slice(-1)[0]] !== undefined
-    }
+    }    
   },
   created() {
+    console.log("created")
     const now = Date.now();
     try {
-      this.data = dataSet.filter((d: any) => {
-          return d['odpt:originAirport'] === "odpt.Airport:HND" && this.isValidAirport(d['odpt:destinationAirport'])
+      console.log("try")
+      this.data = dataSet.filter((d: any):boolean => {
+          const origin: string = d['odpt:originAirport']? d['odpt:originAirport'] : undefined
+          const destination: string = d['odpt:destinationAirport']? d['odpt:destinationAirport'] : undefined
+          const calendar: string = d['odpt:calendar']? d['odpt:calendar'] : undefined
+          if(origin === undefined || calendar === undefined || destination === undefined){
+            return false
+          }
+          return (origin === "odpt.Airport:HND" &&
+              this.isValidAirport(destination) &&
+              getDay(this.getWeek(calendar)) === getDay(now));
         }).flatMap((d: any) => {
           return d['odpt:flightScheduleObject'].filter((f: any) => {
             const from = Date.parse(f['odpt:isValidFrom'])
@@ -86,6 +95,7 @@ export default Vue.extend({
             }
           })
         });
+      console.log(this.data)
       this.dataLoaded = true
     } finally {
     }
