@@ -83,7 +83,7 @@ export default Vue.extend({
           return d['odpt:flightScheduleObject'].filter((f: any) => {
             const from = Date.parse(f['odpt:isValidFrom'])
             const to = Date.parse(f['odpt:isValidTo'])
-            return isPast(from) && isFuture(to)
+            return isPast(from) && isFuture(to) && isFuture(parse(f['odpt:originTime'], 'kk:mm', new Date()));
           }).map((f: any) => {
             return {
               dest: this.getIataCode(d['odpt:destinationAirport']),
