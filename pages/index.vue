@@ -65,10 +65,8 @@ export default Vue.extend({
     }    
   },
   created() {
-    console.log("created")
     const now = Date.now();
     try {
-      console.log("try")
       this.data = dataSet.filter((d: any):boolean => {
           const origin: string = d['odpt:originAirport']? d['odpt:originAirport'] : undefined
           const destination: string = d['odpt:destinationAirport']? d['odpt:destinationAirport'] : undefined
@@ -96,7 +94,6 @@ export default Vue.extend({
             }
           })
         });
-      console.log(this.data)
       this.dataLoaded = true
     } finally {
     }
