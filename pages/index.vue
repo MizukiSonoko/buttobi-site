@@ -36,7 +36,7 @@
 import Vue from "vue";
 import dataSet from '@/assets/data.json'
 import mappingSet from '@/assets/mapping.json'
-import { isPast, isFuture, getDay, parse } from 'date-fns'
+import { isPast, isFuture, getDay, parse, add } from 'date-fns'
 
 interface StringKeyObject {
     [key: string]: string;
@@ -83,7 +83,9 @@ export default Vue.extend({
           return d['odpt:flightScheduleObject'].filter((f: any) => {
             const from = Date.parse(f['odpt:isValidFrom'])
             const to = Date.parse(f['odpt:isValidTo'])
-            return isPast(from) && isFuture(to) && isFuture(parse(f['odpt:originTime'], 'kk:mm', new Date()));
+            return isPast(from) && isFuture(to) &&
+              isFuture(
+                add(parse(f['odpt:originTime'], 'kk:mm', new Date()), {minutes: 60}));
           }).map((f: any) => {
             return {
               dest: this.getIataCode(d['odpt:destinationAirport']),
