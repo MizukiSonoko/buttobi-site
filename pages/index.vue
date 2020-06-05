@@ -11,10 +11,12 @@
       <v-col class="d-flex" cols="12" sm="8" md="6" lg="6" >
         <v-select
           :items="items"
+          v-model="originAirport"
           label="Air Port"
           solo
+          return-object
         ></v-select>
-        <v-btn color="primary" class="my-button">Go travel</v-btn>
+        <v-btn color="primary" class="my-button" @click="changeOriginAirport" :click="changeOriginAirport">Go travel</v-btn>
       </v-col>
     </v-row>
         <v-card v-for="(r, i) in data" :key="r.flightNumbers" class="mx-auto card">
@@ -43,10 +45,14 @@ interface StringKeyObject {
 }
 
 export default Vue.extend({
-  data: () => {
+  data: function () {
     const iata2name: StringKeyObject = mappingSet
     return {
-      items: ['HND', 'ITM'],
+      items: [
+        { label: iata2name['HND']+' (HND)', value: 'ITM' },
+        { label: iata2name['ITM']+' (ITM)', value: 'ITM' }
+      ],
+      originAirport: { label: 'HND', value: 'HND' },
       data: [] as Array<any>,
       dataLoaded: false,
       iata2name
@@ -62,41 +68,41 @@ export default Vue.extend({
     },
     isValidAirport: function (airport: string): boolean {
       return this.iata2name[airport.split(':').slice(-1)[0]] !== undefined
-    }    
+    },
+    changeOriginAirport: function () {
+      console.log(this.originAirport);
+    }  
   },
   created() {
     const now = Date.now();
-    try {
-      this.data = dataSet.filter((d: any):boolean => {
-          const origin: string = d['odpt:originAirport']? d['odpt:originAirport'] : undefined
-          const destination: string = d['odpt:destinationAirport']? d['odpt:destinationAirport'] : undefined
-          const calendar: string = d['odpt:calendar']? d['odpt:calendar'] : undefined
-          if(origin === undefined || calendar === undefined || destination === undefined){
-            return false
+    this.data = dataSet.filter((d: any):boolean => {
+        const origin: string = d['odpt:originAirport']? d['odpt:originAirport'] : undefined
+        const destination: string = d['odpt:destinationAirport']? d['odpt:destinationAirport'] : undefined
+        const calendar: string = d['odpt:calendar']? d['odpt:calendar'] : undefined
+        if(origin === undefined || calendar === undefined || destination === undefined){
+          return false
+        }
+        return (origin === "odpt.Airport:HND" &&
+            this.isValidAirport(destination) &&
+            getDay(this.getWeek(calendar)) === getDay(now));
+      }).flatMap((d: any) => {
+        return d['odpt:flightScheduleObject'].filter((f: any) => {
+          const from = Date.parse(f['odpt:isValidFrom'])
+          const to = Date.parse(f['odpt:isValidTo'])
+          return isPast(from) && isFuture(to) &&
+            isFuture(
+              sub(parse(f['odpt:originTime'], 'kk:mm', new Date()), {minutes: 60}));
+        }).map((f: any) => {
+          return {
+            dest: this.getIataCode(d['odpt:destinationAirport']),
+            iata: d['odpt:destinationAirport'].split(':').slice(-1)[0],
+            flightNumbers: f['odpt:flightNumber'][0],
+            originTime: f['odpt:originTime'],
+            destTime: f['odpt:destinationTime']
           }
-          return (origin === "odpt.Airport:HND" &&
-              this.isValidAirport(destination) &&
-              getDay(this.getWeek(calendar)) === getDay(now));
-        }).flatMap((d: any) => {
-          return d['odpt:flightScheduleObject'].filter((f: any) => {
-            const from = Date.parse(f['odpt:isValidFrom'])
-            const to = Date.parse(f['odpt:isValidTo'])
-            return isPast(from) && isFuture(to) &&
-              isFuture(
-                sub(parse(f['odpt:originTime'], 'kk:mm', new Date()), {minutes: 60}));
-          }).map((f: any) => {
-            return {
-              dest: this.getIataCode(d['odpt:destinationAirport']),
-              iata: d['odpt:destinationAirport'].split(':').slice(-1)[0],
-              flightNumbers: f['odpt:flightNumber'][0],
-              originTime: f['odpt:originTime'],
-              destTime: f['odpt:destinationTime']
-            }
-          })
-        });
-      this.dataLoaded = true
-    } finally {
-    }
+        })
+      });
+    this.dataLoaded = true
   }  
 });
 
