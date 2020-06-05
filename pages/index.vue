@@ -11,6 +11,8 @@
       <v-col class="d-flex" cols="12" sm="8" md="6" lg="6" >
         <v-select
           :items="items"
+          item-text="label"
+          item-value="value"
           v-model="originAirport"
           label="Air Port"
           solo
@@ -49,10 +51,10 @@ export default Vue.extend({
     const iata2name: StringKeyObject = mappingSet
     return {
       items: [
-        { label: iata2name['HND']+' (HND)', value: 'ITM' },
+        { label: iata2name['HND']+' (HND)', value: 'HND' },
         { label: iata2name['ITM']+' (ITM)', value: 'ITM' }
       ],
-      originAirport: { label: 'HND', value: 'HND' },
+      originAirport: { label: iata2name['HND']+' (HND)', value: 'HND' },
       data: [] as Array<any>,
       dataLoaded: false,
       iata2name
