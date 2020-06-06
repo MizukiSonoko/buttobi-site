@@ -22,3 +22,9 @@ $ yarn generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+
+# Howt to retrive data 
+
+```sh
+$ curl https://api-tokyochallenge.odpt.org/api/v4/odpt:FlightSchedule?odpt:operator=odpt.Operator:ANA&acl:consumerKey=<my key> > assets/data.json
+```
