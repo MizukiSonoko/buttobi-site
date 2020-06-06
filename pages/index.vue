@@ -74,12 +74,9 @@ export default Vue.extend({
     changeOriginAirport: function () {
       const newSchedules = this.getAirplainsFrom(this.originAirport.value);
       this.data.splice(newSchedules.length)
-      console.log(newSchedules);
       Array.prototype.forEach.call(newSchedules, (s: any,i: number) => {
         Vue.set(this.data, i, s)
       })
-      console.log(this.$data.data);
-      console.log(this.originAirport.value, this.getAirplainsFrom(this.originAirport.value));
     },
     getAirplainsFrom: function (iata: string):any[] {
       const now = Date.now();
