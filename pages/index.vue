@@ -72,19 +72,18 @@ export default Vue.extend({
       return this.iata2name[airport.split(':').slice(-1)[0]] !== undefined
     },
     changeOriginAirport: function () {
-      console.log(this.originAirport);
-    }  
-  },
-  created() {
-    const now = Date.now();
-    this.data = dataSet.filter((d: any):boolean => {
+      this.data = this.getAirplainsFrom(this.originAirport.value);
+    },
+    getAirplainsFrom: function (iata: string):any[] {
+      const now = Date.now();
+      return dataSet.filter((d: any):boolean => {
         const origin: string = d['odpt:originAirport']? d['odpt:originAirport'] : undefined
         const destination: string = d['odpt:destinationAirport']? d['odpt:destinationAirport'] : undefined
         const calendar: string = d['odpt:calendar']? d['odpt:calendar'] : undefined
         if(origin === undefined || calendar === undefined || destination === undefined){
           return false
         }
-        return (origin === "odpt.Airport:HND" &&
+        return (origin === "odpt.Airport:"+iata &&
             this.isValidAirport(destination) &&
             getDay(this.getWeek(calendar)) === getDay(now));
       }).flatMap((d: any) => {
@@ -104,6 +103,11 @@ export default Vue.extend({
           }
         })
       });
+    }
+  },
+  created() {
+    const now = Date.now();
+    this.data = this.getAirplainsFrom('HND');
     this.dataLoaded = true
   }  
 });
