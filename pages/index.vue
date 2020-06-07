@@ -29,7 +29,7 @@
             </p>
             <p>{{r.flightNumbers}}</p>
             <div class="text--primary">
-              originTime:{{r.originTime}} -> destinationTime:{{r.destTime}}
+              出発時間:{{r.originTime}}
             </div>
           </v-card-text>
         </v-card>
@@ -50,7 +50,7 @@ interface StringKeyObject {
 export default Vue.extend({
   data: function () {
     const iata2name: StringKeyObject = mappingSet
-    const supportedAirports = ['HND','ITM','FUK']
+    const supportedAirports = ['HND','ITM','FUK','OKA']
     return {
       items: supportedAirports.map((iata: string) => {
         return { label: iata2name[iata]+' ('+iata+')', value: iata }
@@ -100,7 +100,6 @@ export default Vue.extend({
           iata: d['odpt:destinationAirport'].split(':').slice(-1)[0],
           flightNumbers: d['odpt:flightNumber'][0],
           originTime: d['odpt:scheduledDepartureTime'],
-          destTime: d['odpt:scheduledDepartureTime']
         }
       });
     },
