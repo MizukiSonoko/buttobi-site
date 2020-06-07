@@ -39,6 +39,7 @@
 <script lang="ts">
 import Vue from "vue";
 import dataSet from '@/assets/data.json'
+import currentSet from '@/assets/current.json'
 import mappingSet from '@/assets/mapping.json'
 import { isPast, isFuture, getDay, parse, sub } from 'date-fns'
 
@@ -80,6 +81,31 @@ export default Vue.extend({
     },
     getAirplainsFrom: function (iata: string):any[] {
       const now = Date.now();
+      return currentSet.filter((d: any):boolean => {
+        const departureAirport: string = d['odpt:departureAirport']? d['odpt:departureAirport'] : undefined
+        const flightStatus: string = d['odpt:flightStatus']? d['odpt:flightStatus'] : undefined
+        const destination: string = d['odpt:destinationAirport']? d['odpt:destinationAirport'] : undefined
+        if(departureAirport === undefined || destination === undefined || flightStatus === undefined){
+          return false
+        }
+        return (departureAirport === "odpt.Airport:"+iata &&
+            this.isValidAirport(destination) &&
+            flightStatus !== "odpt.FlightStatus:Cancelled") &&
+            isFuture(
+              sub(parse(d['odpt:scheduledDepartureTime'], 'kk:mm', new Date()), {minutes: 60})
+            );
+      }).map((d: any) => {
+        return {
+          dest: this.getIataCode(d['odpt:destinationAirport']),
+          iata: d['odpt:destinationAirport'].split(':').slice(-1)[0],
+          flightNumbers: d['odpt:flightNumber'][0],
+          originTime: d['odpt:scheduledDepartureTime'],
+          destTime: d['odpt:scheduledDepartureTime']
+        }
+      });
+    },
+    getAirplainsScheduleFrom: function (iata: string):any[] {
+      const now = Date.now();
       return dataSet.filter((d: any):boolean => {
         const origin: string = d['odpt:originAirport']? d['odpt:originAirport'] : undefined
         const destination: string = d['odpt:destinationAirport']? d['odpt:destinationAirport'] : undefined
@@ -113,6 +139,8 @@ export default Vue.extend({
     const now = Date.now();
     this.data = this.getAirplainsFrom('HND');
     this.dataLoaded = true
+
+    console.log(currentSet)
   }  
 });
 
