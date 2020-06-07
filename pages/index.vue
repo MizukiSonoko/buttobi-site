@@ -49,11 +49,11 @@ interface StringKeyObject {
 export default Vue.extend({
   data: function () {
     const iata2name: StringKeyObject = mappingSet
+    const supportedAirports = ['HND','ITM','FUK']
     return {
-      items: [
-        { label: iata2name['HND']+' (HND)', value: 'HND' },
-        { label: iata2name['ITM']+' (ITM)', value: 'ITM' }
-      ],
+      items: supportedAirports.map((iata: string) => {
+        return { label: iata2name[iata]+' ('+iata+')', value: iata }
+      }),
       originAirport: { label: iata2name['HND']+' (HND)', value: 'HND' },
       data: [] as Array<any>,
       dataLoaded: false,
