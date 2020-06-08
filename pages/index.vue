@@ -26,7 +26,7 @@
             <div>ID.{{r.flightNumbers}}</div>
             <v-card-title
               class="headline">
-              to {{r.dest}}({{r.iata}})
+              🛬   {{r.dest}}({{r.iata}})
             </v-card-title>
             <v-card-subtitle>
               出発時間:{{r.originTime}}
@@ -53,7 +53,7 @@ export default Vue.extend({
     const supportedAirports = ['HND','ITM','FUK','OKA']
     return {
       items: supportedAirports.map((iata: string) => {
-        return { label: iata2name[iata]+' ('+iata+')', value: iata }
+        return { label: '🛫' + iata2name[iata]+' ('+iata+')', value: iata }
       }),
       originAirport: { label: iata2name['HND']+' (HND)', value: 'HND' },
       data: [] as Array<any>,
