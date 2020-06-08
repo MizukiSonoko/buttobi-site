@@ -21,16 +21,16 @@
         <v-btn color="primary" class="my-button" @click="changeOriginAirport" :click="changeOriginAirport">Go travel</v-btn>
       </v-col>
     </v-row>
-        <v-card v-for="(r, i) in data" :key="r.flightNumbers" class="mx-auto card">
+        <v-card v-for="(r, i) in data" :key="r.flightNumbers" :color="getCardColor(i)" :dark="isDarkCard(i)" class="mx-auto card">
           <v-card-text>
-            <div>No.{{i}}</div>
-            <p class="display-1 text--primary">
+            <div>ID.{{r.flightNumbers}}</div>
+            <v-card-title
+              class="headline">
               to {{r.dest}}({{r.iata}})
-            </p>
-            <p>{{r.flightNumbers}}</p>
-            <div class="text--primary">
+            </v-card-title>
+            <v-card-subtitle>
               出発時間:{{r.originTime}}
-            </div>
+            </v-card-subtitle>
           </v-card-text>
         </v-card>
   </v-layout>
@@ -71,6 +71,19 @@ export default Vue.extend({
     },
     isValidAirport: function (airport: string): boolean {
       return this.iata2name[airport.split(':').slice(-1)[0]] !== undefined
+    },
+    getCardColor(index: number): string{
+      if(index === 0){
+        return '#952175';
+      }else if(index === 1){
+        return '#1F7087';
+      }else if(index === 2){
+        return '#385F73';
+      }
+      return '#fff';
+    },
+    isDarkCard(index: number): boolean{
+      return index < 3;
     },
     changeOriginAirport: function () {
       const newSchedules = this.getAirplainsFrom(this.originAirport.value);
