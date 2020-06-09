@@ -86,11 +86,25 @@ export default Vue.extend({
       return index < 3;
     },
     changeOriginAirport: function () {
-      const newSchedules = this.getAirplainsFrom(this.originAirport.value);
+      var scs = this.getAirplainsFrom(this.originAirport.value);
+      const newSchedules = this.shuffleSchedule(scs);
+      console.log(newSchedules);
       this.data.splice(newSchedules.length)
       Array.prototype.forEach.call(newSchedules, (s: any,i: number) => {
         Vue.set(this.data, i, s)
       })
+    },
+    shuffleSchedule(schedules: any[]):any[] {
+      // Ref: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+      var currentIndex = schedules.length, temporaryValue, randomIndex;
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = schedules[currentIndex];
+        schedules[currentIndex] = schedules[randomIndex];
+        schedules[randomIndex] = temporaryValue;
+      }
+      return schedules;
     },
     getAirplainsFrom: function (iata: string):any[] {
       const now = Date.now();
