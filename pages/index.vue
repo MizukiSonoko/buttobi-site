@@ -88,7 +88,6 @@ export default Vue.extend({
     changeOriginAirport: function () {
       var scs = this.getAirplainsFrom(this.originAirport.value);
       const newSchedules = this.shuffleSchedule(scs);
-      console.log(newSchedules);
       this.data.splice(newSchedules.length)
       Array.prototype.forEach.call(newSchedules, (s: any,i: number) => {
         Vue.set(this.data, i, s)
@@ -165,8 +164,6 @@ export default Vue.extend({
     const now = Date.now();
     this.data = this.getAirplainsFrom('HND');
     this.dataLoaded = true
-
-    console.log(currentSet)
   }  
 });
 
