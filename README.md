@@ -13,6 +13,15 @@
 
 ㌽: 空港で利用すると楽です。
 
+# Example
+
+1) 羽田空港へ行きます。
+2) [page](https://mizukisonoko.github.io/u25challenge/) にアクセスしHND空港を選択します。
+3) 以下のような結果が出ます(例)。
+![image](https://user-images.githubusercontent.com/6281583/84413706-f881c400-ac4b-11ea-89af-47fbec895dc9.png)
+
+4) 「鹿児島空港」,「福岡空港」,「高知空港」の順番に空席があるか確認します。
+5) 空席があった時点で購入、出た空港に飛行機で向かいます。
 
 # What's 'スマートU25' 
 
