@@ -4,24 +4,11 @@
 
 > smart-u25 challenge page
 
-## Build Setup
+# What's 'スマートU25' 
 
-```bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+> 12歳以上25歳以下のANAマイレージクラブ会員のお客様がご購入いただけるおトクな運賃です。
+> 当日空席があれば予約が可能！
+[URL](https://www.ana.co.jp/ja/jp/book-plan/fare/domestic/smart-u25/)
 
 # Data sources
 
