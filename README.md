@@ -26,9 +26,11 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 # Data sources
 
 [東京公共交通オープンデータチャレンジ](https://tokyochallenge.odpt.org/)
+[Open Data Challenge for Public Transportation in Tokyo](https://tokyochallenge.odpt.org/en/index.html)
 I uses this data
 ```
 フライト時刻表、リアルタイム発着情報 by 全日本空輸
+flight timetable, departure information by All Nippon Airways
 ```
 
 # How to retrive data 
