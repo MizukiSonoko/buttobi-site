@@ -2,19 +2,30 @@
 
 [page](https://mizukisonoko.github.io/u25challenge/)
 
-> smart-u25 challenge page
+スマートU25　応援サイトです。
+
+# How to use
+
+1) [page](https://mizukisonoko.github.io/u25challenge/) にアクセスし出発空港を選択します。
+2) 「Go TRAVEL」を押すと現在時刻から１時間後以降に出発する飛行機が順番に表示されます。
+3) 上から順に [ana公式ページ](https://www.ana.co.jp/en/jp/) 、または空港にあるANAの発券機などで購入可能か調べ、空席があれば買います。
+4) 乗ります。  
+
+㌽: 空港で利用すると楽です。
+
 
 # What's 'スマートU25' 
 
-> 12歳以上25歳以下のANAマイレージクラブ会員のお客様がご購入いただけるおトクな運賃です。
-> 当日空席があれば予約が可能！
-[URL](https://www.ana.co.jp/ja/jp/book-plan/fare/domestic/smart-u25/)
+> 12歳以上25歳以下のANAマイレージクラブ会員のお客様がご購入いただけるおトクな運賃です。  
+> 当日空席があれば予約が可能！  
+
+[参考](https://www.ana.co.jp/ja/jp/book-plan/fare/domestic/smart-u25/)
 
 # Data sources
 
 [東京公共交通オープンデータチャレンジ](https://tokyochallenge.odpt.org/)
 [Open Data Challenge for Public Transportation in Tokyo](https://tokyochallenge.odpt.org/en/index.html)
-I uses this data
+
 ```
 フライト時刻表、リアルタイム発着情報 by 全日本空輸
 flight timetable, departure information by All Nippon Airways
@@ -23,5 +34,5 @@ flight timetable, departure information by All Nippon Airways
 # How to retrive data 
 
 ```sh
-$ curl 'https://api-tokyochallenge.odpt.org/api/v4/odpt:FlightInformationDeparture?odpt:operator=odpt.Operator:ANA&acl:consumerKey=1yOXjfC299f68M_Yq2gshqwYLemqaWB1Sq7RF1seRsA' > assets/data.json
+$ curl 'https://api-tokyochallenge.odpt.org/api/v4/odpt:FlightInformationDeparture?odpt:operator=odpt.Operator:ANA&acl:consumerKey=<Your Key>' > assets/data.json
 ```
