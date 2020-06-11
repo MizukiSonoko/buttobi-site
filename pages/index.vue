@@ -160,11 +160,6 @@ export default Vue.extend({
       });
     }
   },
-  created() {
-    const now = Date.now();
-    this.data = this.getAirplainsFrom('HND');
-    this.dataLoaded = true
-  }  
 });
 
   /*
