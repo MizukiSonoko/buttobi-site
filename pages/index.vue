@@ -162,41 +162,6 @@ export default Vue.extend({
   },
 });
 
-  /*
-0:
-  @context: "http://vocab.odpt.org/context_odpt.jsonld"
-  @id: "urn:ucode:_00001C000000000000010000032896D4"
-  @type: "odpt:FlightSchedule"
-  dc:date: "2020-05-21T17:00:00+09:00"
-  odpt:calendar: "odpt.Calendar:Sunday"
-  odpt:destinationAirport: "odpt.Airport:ISG"
-  odpt:flightScheduleObject: [
-    0: { 
-      odpt:aircraftType: "772"
-      odpt:airline: "odpt.Operator:ANA"
-      odpt:destinationTime: "09:10"
-      odpt:flightNumber: ["NH089"]
-      odpt:isValidFrom: "2020-05-01T00:00:00+09:00"
-      odpt:isValidTo: "2020-05-09T23:59:59+09:00"
-      odpt:originTime: "06:10"
-    }
-    1: {
-      odpt:aircraftType: "321"
-      odpt:airline: "odpt.Operator:ANA"
-      odpt:destinationTime: "09:20"
-      odpt:flightNumber: ["NH089"]
-      odpt:isValidFrom: "2020-05-10T00:00:00+09:00"
-      odpt:isValidTo: "2020-05-31T23:59:59+09:00"
-      odpt:originTime: "06:10"
-    }
-    2: {odpt:airline: "odpt.Operator:ANA", odpt:isValidTo: "2020-06-30T23:59:59+09:00", odpt:originTime: "06:15", odpt:isValidFrom: "2020-06-01T00:00:00+09:00", odpt:aircraftType: "763", …}
-    3: {odpt:airline: "odpt.Operator:ANA", odpt:isValidTo: "2020-05-31T23:59:59+09:00", odpt:originTime: "11:25", odpt:isValidFrom: "2020-05-01T00:00:00+09:00", odpt:aircraftType: "788/772", …}
-    4: {odpt:airline: "odpt.Operator:ANA", odpt:isValidTo: "2020-06-30T23:59:59+09:00", odpt:originTime: "11:25", odpt:isValidFrom: "2020-06-01T00:00:00+09:00", odpt:aircraftType: "321", …}
-  ]
-  odpt:operator: "odpt.Operator:ANA"
-  odpt:originAirport: "odpt.Airport:HND"
-  owl:sameAs: "odpt.FlightSchedule:ANA.HND.ISG.Sunday"
-  */
 </script>
 
 <style lang="postcss" scoped>
