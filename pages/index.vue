@@ -2,6 +2,7 @@
   <v-layout
     column
     justify-center
+    class="main"
   >
     <v-row
         justify="center"
@@ -173,15 +174,19 @@ export default Vue.extend({
 </script>
 
 <style lang="postcss" scoped>
-.header {
-  min-height: 300px;
-}
-.my-button {
-  margin: 6px 8px;
-}
-.card { 
-  margin: 8px 0px; 
-  width: 600px;
+.main{
+  background: linear-gradient(#b3e5fc, #0288d1);
+
+  .header {
+    min-height: 300px;
+  }
+  .my-button {
+    margin: 6px 8px;
+  }
+  .card { 
+    margin: 8px 0px; 
+    width: 600px;
+  }
 }
 
 </style>
