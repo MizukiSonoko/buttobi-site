@@ -85,5 +85,20 @@ export default {
     */
     extend (config, ctx) {
     }
+  },
+  /* PWA */
+  manifest: {
+    name: 'u25 challenge',
+    lang: 'ja',
+    short_name: 'u25-challenge',
+    title: 'スマートU25チャレンジサイト',
+    'og:title': 'スマートU25チャレンジサイト',
+    description: 'ランダムに目的空港を表示します。乗ろう',
+    'og:description': 'ランダムに目的空港を表示します。乗ろう',
+    theme_color: '#005b9f',
+    background_color: '#005b9f'
+  },
+  workbox: {
+    dev: true,
   }
 }
