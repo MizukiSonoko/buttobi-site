@@ -43,6 +43,7 @@ export default {
   buildModules: [
     '@nuxt/typescript-build',
     '@nuxtjs/vuetify',
+    '@nuxtjs/pwa',
   ],
   /*
   ** Nuxt.js modules
