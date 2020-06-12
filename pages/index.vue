@@ -75,11 +75,11 @@ export default Vue.extend({
     },
     getCardColor(index: number): string{
       if(index === 0){
-        return '#952175';
+        return '#c62828';
       }else if(index === 1){
-        return '#1F7087';
+        return '#ff8f00';
       }else if(index === 2){
-        return '#385F73';
+        return '#558b2f';
       }
       return '#fff';
     },
