@@ -22,7 +22,12 @@
         <v-btn color="primary" class="my-button" @click="changeOriginAirport" :click="changeOriginAirport">Go travel</v-btn>
       </v-col>
     </v-row>
-        <v-card v-for="(r, i) in data" :key="r.flightNumbers" :color="getCardColor(i)" :dark="isDarkCard(i)" class="mx-auto card">
+    <div class="result">
+      <transition-group name="item" tag="v-card">
+        <v-card v-for="(r, i) in data"
+          :key="r.flightNumbers"
+          :color="getCardColor(i)"
+          :dark="isDarkCard(i)" class="mx-auto card">
           <v-card-text>
             <div>ID.{{r.flightNumbers}}</div>
             <v-card-title
@@ -34,6 +39,8 @@
             </v-card-subtitle>
           </v-card-text>
         </v-card>
+      </transition-group>
+    </div>
   </v-layout>
 </template>
 
@@ -186,6 +193,23 @@ export default Vue.extend({
   .card { 
     margin: 8px 0px; 
     width: 600px;
+  }
+  .item-enter-active {
+    transition: all 2s;
+  }
+  .item-enter{
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  .result {
+    margin-bottom: 128px;
+  }
+  .theme--light.v-card {
+    background-color: #0000;
+    box-shadow: none;
+  }
+  .theme--light.v-sheet {
+    background-color: #0000;
   }
 }
 
