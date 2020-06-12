@@ -107,6 +107,7 @@ export default Vue.extend({
     },
     getAirplainsFrom: function (iata: string):any[] {
       const now = Date.now();
+      const destSet = new Set();
       return currentSet.filter((d: any):boolean => {
         const departureAirport: string = d['odpt:departureAirport']? d['odpt:departureAirport'] : undefined
         const flightStatus: string = d['odpt:flightStatus']? d['odpt:flightStatus'] : undefined
@@ -114,12 +115,19 @@ export default Vue.extend({
         if(departureAirport === undefined || destination === undefined || flightStatus === undefined){
           return false
         }
-        return (departureAirport === "odpt.Airport:"+iata &&
+        if(destSet.has(d['odpt:destinationAirport'])){
+          return false;
+        }
+        if((departureAirport === "odpt.Airport:"+iata &&
             this.isValidAirport(destination) &&
             flightStatus !== "odpt.FlightStatus:Cancelled") &&
             isFuture(
               sub(parse(d['odpt:scheduledDepartureTime'], 'kk:mm', new Date()), {minutes: 60})
-            );
+            )){
+          destSet.add(d['odpt:destinationAirport']);
+          return true;
+        }
+        return false;
       }).map((d: any) => {
         return {
           dest: this.getIataCode(d['odpt:destinationAirport']),
