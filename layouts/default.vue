@@ -6,7 +6,7 @@
       app
       class="footer"
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+      <span>&copy; {{ new Date().getFullYear() }} MizukiSonoko</span>
     </v-footer>
   </v-app>
 </template>
@@ -14,27 +14,7 @@
 <script>
 export default {
   data () {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-airplane-takeoff',
-          title: 'Smart-U25 challenge!',
-          to: '/'
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Smart-u25 challenge!'
-    }
+    return {};
   }
 }
 </script>
