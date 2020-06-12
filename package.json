@@ -1,7 +1,7 @@
 {
-  "name": "u25challenge",
+  "name": "buttobi-site",
   "version": "1.0.0",
-  "description": "smart-u25 challenge page",
+  "description": "buttobi challenge page",
   "author": "Sonoko Mizuki",
   "private": true,
   "scripts": {

@@ -1,12 +1,12 @@
-# u25challenge
+# buttobi-site
 
-[page](https://mizukisonoko.github.io/u25challenge/)
+[page](https://mizukisonoko.github.io/buttobi-site/)
 
-スマートU25　応援サイトです。
+ぶっとびチャレンジサイトです。ANAが大好きです。
 
 # How to use
 
-1) [page](https://mizukisonoko.github.io/u25challenge/) にアクセスし出発空港を選択します。
+1) [page](https://mizukisonoko.github.io/buttobi-site/) にアクセスし出発空港を選択します。
 2) 「Go TRAVEL」を押すと現在時刻から１時間後以降に出発する飛行機が順番に表示されます。
 3) 上から順に [ana公式ページ](https://www.ana.co.jp/en/jp/) 、または空港にあるANAの発券機などで購入可能か調べ、空席があれば買います。
 4) 乗ります。  
@@ -16,7 +16,7 @@
 # Example
 
 1) 羽田空港へ行きます。
-2) [page](https://mizukisonoko.github.io/u25challenge/) にアクセスしHND空港を選択します。
+2) [page](https://mizukisonoko.github.io/buttobi-site/) にアクセスしHND空港を選択します。
 3) 以下のような結果が出ます(例)。
 ![image](https://user-images.githubusercontent.com/6281583/84413706-f881c400-ac4b-11ea-89af-47fbec895dc9.png)
 
@@ -38,10 +38,4 @@
 ```
 フライト時刻表、リアルタイム発着情報 by 全日本空輸
 flight timetable, departure information by All Nippon Airways
-```
-
-# How to retrive data 
-
-```sh
-$ curl 'https://api-tokyochallenge.odpt.org/api/v4/odpt:FlightInformationDeparture?odpt:operator=odpt.Operator:ANA&acl:consumerKey=<Your Key>' > assets/data.json
 ```

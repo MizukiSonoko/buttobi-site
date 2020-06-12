@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 const routerBase = process.env.DEPLOY_ENV === 'GH_PAGES' ? {
   router: {
-    base: '/u25challenge/'
+    base: '/buttobi-site/'
   }
 } : {}
 
@@ -20,7 +20,7 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/u25challenge/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/buttobi-site/favicon.ico' }
     ]
   },
   /*
@@ -88,13 +88,13 @@ export default {
   },
   /* PWA */
   manifest: {
-    name: 'u25 challenge',
+    name: 'buttobi-site',
     lang: 'ja',
-    short_name: 'u25-challenge',
-    title: 'スマートU25チャレンジサイト',
-    'og:title': 'スマートU25チャレンジサイト',
-    description: 'ランダムに目的空港を表示します。乗ろう',
-    'og:description': 'ランダムに目的空港を表示します。乗ろう',
+    short_name: 'buttobi-site',
+    title: 'ぶっとびチャレンジサイト',
+    'og:title': 'ぶっとびチャレンジサイト',
+    description: 'ランダムに目的空港を表示します。飛行機、乗ろう',
+    'og:description': 'ランダムに目的空港を表示します。飛行機、乗ろう',
     theme_color: '#005b9f',
     background_color: '#005b9f'
   },
