@@ -2,9 +2,9 @@ name: Scraping OpenData API
 on:
   schedule:
     - cron: 0 0 * * *
-  push:
+
 jobs:
-  commit_data:
+  fetch-data:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
