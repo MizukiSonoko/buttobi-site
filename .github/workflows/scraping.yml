@@ -4,14 +4,14 @@ on:
     - cron: 0 0 * * *
   push:
 jobs:
-  create_pr:
+  commit_data:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
       - name: Fetch data from API / Push
         run: |
           echo Fetch data from https://tokyochallenge.odpt.org/
-          curl `https://api-tokyochallenge.odpt.org/api/v4/odpt:FlightInformationDeparture?odpt:operator=odpt.Operator:ANA&acl:consumerKey=${{ secrets.ODPT_KEY }}` > assets/current.json
+          curl `https://api-tokyochallenge.odpt.org/api/v4/odpt:FlightInformationDeparture?odpt:operator=odpt.Operator:ANA&acl:consumerKey=${ODPT_KEY}` > assets/current.json
           git config user.name "sonoko-bot"
           git config user.email "sonoko+bot@mizuki.io"
           git remote set-url origin https://MizukiSonoko:${GITHUB_TOKEN}@github.com/MizukiSonoko/buttobi-site
@@ -23,3 +23,4 @@ jobs:
           git push origin master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ODPT_KEY: ${{ secrets.ODPT_KEY }}
