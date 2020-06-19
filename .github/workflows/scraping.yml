@@ -11,7 +11,7 @@ jobs:
       - name: Fetch data from API / Push
         run: |
           echo Fetch data from https://tokyochallenge.odpt.org/
-          curl `https://api-tokyochallenge.odpt.org/api/v4/odpt:FlightInformationDeparture?odpt:operator=odpt.Operator:ANA&acl:consumerKey=${ODPT_KEY}` > assets/current.json
+          curl "https://api-tokyochallenge.odpt.org/api/v4/odpt:FlightInformationDeparture?odpt:operator=odpt.Operator:ANA&acl:consumerKey=${ODPT_KEY}" > assets/current.json
           git config user.name "sonoko-bot"
           git config user.email "sonoko+bot@mizuki.io"
           git remote set-url origin https://MizukiSonoko:${GITHUB_TOKEN}@github.com/MizukiSonoko/buttobi-site
