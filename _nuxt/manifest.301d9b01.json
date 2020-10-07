@@ -1,1 +1,14 @@
-{"name":"buttobi-site","short_name":"buttobi-site","description":"ランダムに目的空港を表示します。飛行機、乗ろう","icons":[],"start_url":"/buttobi-site/?standalone=true","display":"standalone","background_color":"#005b9f","theme_color":"#005b9f","lang":"ja","title":"ぶっとびチャレンジサイト","og:title":"ぶっとびチャレンジサイト","og:description":"ランダムに目的空港を表示します。飛行機、乗ろう"}
+{
+  "name": "buttobi-site",
+  "short_name": "buttobi-site",
+  "description": "ランダムに目的空港を表示します。飛行機、乗ろう",
+  "icons": [],
+  "start_url": "/buttobi-site/?standalone=true",
+  "display": "standalone",
+  "background_color": "#005b9f",
+  "theme_color": "#005b9f",
+  "lang": "ja",
+  "title": "ぶっとびチャレンジサイト",
+  "og:title": "ぶっとびチャレンジサイト",
+  "og:description": "ランダムに目的空港を表示します。飛行機、乗ろう"
+}
